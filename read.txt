@@ -1,0 +1,81 @@
+### Flutter yüklemek MACOS
+article : https://docs.flutter.dev/get-started/install/macos
+
+SADECE ANDORID geliştirilcek ondan xcode vs. gerek duyulmadı
+
+# 1.
+sudo softwareupdate --install-rosetta --agree-to-license
+
+# 2. android studio ( VSCODE kullanacağız ancak bunun olması yinede gerekli )
+https://developer.android.com/studio
+- android-studio-2024.3.2.14-mac_arm.dmg
+
+# flutter yükle ve zipten çıkart
+https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/flutter_macos_arm64_3.29.3-stable.zip
+
+* şu klosoru oluştur ve içeriği oraya at flutter olcak klosor ismi ve içeriği içerde olcak
+~/development/
+
+- direkt şuda seslenebilir
+unzip ~/Downloads/flutter_macos_arm64_3.29.3-stable.zip \
+       -d ~/development/
+
+# zsh için path oluşturmak
+nano ~/.zshenv
+
+- ekle
+export PATH=$HOME/development/flutter/bin:$PATH
+
+# çalıştır
+which flutter
+*
+/Users/bugra/development/flutter/bin/flutter
+
+# çalıştır
+flutter doctor
+
+# ANDORID studio'da sdk ve api33 'ü seç ve yükle
+customu seç ordan sdk ve api35 var mesela şuan
+*
+sdk burda olacakmış
+/Users/bugra/Library/Android/sdk
+
+# Açıldıktan sonra
+More Actions > SDK MANAGER
+
+* sdk platforms'ta istersen en son sürümü yüklersin bende 15 var 16'i istemedim
+* skd tools'ta sdk build tools ve sdk commandline tools android emulator ve sdk platform tools
+* OK'a bas ve yükler
+
+- tekrar sesle
+flutter doctor
+
+* bende sorun yoktu :D önceden yüklemiştim çünkü :D
+
+# more actions > virtual device manager
+* create device Pixel 6 iyidir
+
+
+# yeni prje başlatmak
+flutter create first_app
+--
+$ cd first_app
+$ flutter run
+
+# flutter extension yükle vscode için
+
+####
+View > Command Palatte
+* flutter launch emulator
+* pixel 6 android
+- bizim yerimize açar bu şekilde
+
+# alttaki status bar açık olmalı orda cihaz pixel 6 görünüyor tıklarsın ona 
+* maindeki run'a tıkla
+
+** yada
+$ flutter run
+
+# ya da yukardan run'da run without debugging ... ancak main.dart dosyasında olman gerek önce
+
+değişiklik yapıp save edince hızlı build alır ancak almazsa eğer flasha basarsın
