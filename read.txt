@@ -79,3 +79,17 @@ $ flutter run
 # ya da yukardan run'da run without debugging ... ancak main.dart dosyasında olman gerek önce
 
 değişiklik yapıp save edince hızlı build alır ancak almazsa eğer flasha basarsın
+
+*****
+Flutter Widget : https://docs.flutter.dev/ui/widgets
+
+KISAYOL:
+COMMAND + SHIFT + F
+ama önce parantezler arası virgul koy bu formatlar
+),),),)
+
+
+## APK çıktısı almak:
+flutter build apk
+
+# run ederken yukardan run -> run without debugging // diyoruz

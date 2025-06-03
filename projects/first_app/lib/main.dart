@@ -1,54 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:first_app/gradient_container.dart';
+
+/**
+ * 
+ * Flutter Widget : https://docs.flutter.dev/ui/widgets
+ */
 
 void main() {
-  runApp(const MyApp());
-}
+  /*
+  runApp wants us to give widget so that we did. (?)
+  thanks to const device memory will be used better. Define once use all the time.
+  */
+  /*
+  runApp(const MaterialApp(home: Text(
+    "Hello World"
+  )));
+  */
 
-// With Flutter, you create user interfaces by combining "widgets"
-// You'll learn all about them (and much more) throughout this course!
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // Every custom widget must have a build() method
-  // It tells Flutter, which widgets make up your custom widget
-  // Again: You'll learn all about that throughout the course!
-  @override
-  Widget build(BuildContext context) {
-    // Below, a bunch of built-in widgets are used (provided by Flutter)
-    // They will be explained in the next sections
-    // In this course, you will, of course, not just use them a lot but
-    // also learn about many other widgets!
-    return MaterialApp(
-      title: 'Flutter First App',
-      theme: ThemeData(useMaterial3: true),
+  runApp(
+    // buralara const koyarsan optimize olur ... // sürekli sürekli oluşmazlar 1 kere oluşur
+    // constlar önemli
+    const MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Welcome to Flutter'),
-        ),
-        body: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
-              Text(
-                'Flutter - The Complete Guide',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 16),
-              Text(
-                'Learn Flutter step-by-step, from the ground up.',
-                textAlign: TextAlign.center,
-              ),
+        backgroundColor: Color.fromARGB(255, 47, 5, 120),
+        body: Center(
+          child: GradientContainer(
+            colors: [
+              Color(0xFF11998E), // Deniz yeşili (Tiffany Green)
+              Color(0xFF38EF7D), // Açık yeşil (Emerald)
             ],
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
 }
