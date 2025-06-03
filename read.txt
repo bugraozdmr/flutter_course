@@ -93,3 +93,11 @@ ama önce parantezler arası virgul koy bu formatlar
 flutter build apk
 
 # run ederken yukardan run -> run without debugging // diyoruz
+
+# resim eklerken
+pubspec.yaml içinde
+**
+assets:
+       - assets/images/quiz-logo.png
+**
+şeklinde
