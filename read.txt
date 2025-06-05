@@ -101,3 +101,11 @@ assets:
        - assets/images/quiz-logo.png
 **
 şeklinde
+
+## GOOgle Fonts
+pub.dev sitesi
+
+https://pub.dev/packages/google_fonts/install
+
+sonra pubspec.yaml'da görürsün dependency altında
+  google_fonts: ^6.2.1

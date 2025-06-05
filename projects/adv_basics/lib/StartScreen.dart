@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class StartScreen extends StatelessWidget {
   // value almayan ve deger donmeyen bir fonk startQuiz
@@ -28,9 +29,14 @@ class StartScreen extends StatelessWidget {
             child: Image.asset('assets/images/quiz-logo.png', width: 300),
           ),*/
           const SizedBox(height: 80),
-          const Text(
-            'Learn flutter the fun way!',
-            style: TextStyle(fontSize: 24, color: Colors.white),
+          Text(
+            'Abur Cubur Canavarı Şeymayı ne kadar iyi tanıyorsun',
+            style: GoogleFonts.raleway(
+              fontSize: 24,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 30),
           OutlinedButton.icon(

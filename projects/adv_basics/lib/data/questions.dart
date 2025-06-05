@@ -1,35 +1,35 @@
 import 'package:adv_basics/models/quizQuestion.dart';
 
 const questions = [
-  Quizquestion('Şeymanın en sevdiği oyuncağı ?', ['Ersoy', 'Duygu', 'Kuromi']),
+  Quizquestion('Şeymanın en sevdiği oyuncağı ?', ['Duygu', 'Ersoy', 'Kuromi']),
   Quizquestion('Şeymanın youtube izlemeyi en çok sevdiği cihaz ?', [
     'Telefon',
     'Tablet',
     'Bilgisayar',
   ]),
   Quizquestion('Şeymanın en çok kullandığı kötü söz ?', [
+    'Dümbük',
     'Eşşek',
     'Hayvan',
-    'Dümbük',
   ]),
   Quizquestion('Şeymanın en sevdiği youtube içeriği ?', [
-    'Minecraft',
     'ASMR diye kandırdığı saçma hikayeler',
+    'Minecraft',
     'Uzaylılar dünyayı işgal ediyor',
   ]),
   Quizquestion('Şeymanın en sevdiği saldırı biçimi ?', [
+    'Mıncırma',
     'Yumruk',
     'Tokat',
-    'Mıncırma',
   ]),
   Quizquestion('Şeymanın arkadaş kazığı yediği abur cubur ?', [
+    'Meybuz',
     'Dondurma',
     'Cipsi',
-    'Meybuz',
   ]),
   Quizquestion('Şeymanın en sevdiği abur cubur ?', [
+    'Hepsi ( cidden her şey )',
     'Dondurma',
     'Cipsi ',
-    'Hepsi ( cidden her şey )',
   ]),
 ];
