@@ -109,3 +109,75 @@ https://pub.dev/packages/google_fonts/install
 
 sonra pubspec.yaml'da görürsün dependency altında
   google_fonts: ^6.2.1
+
+*************************
+# EĞER yanlışlıkla ilgili ndk'i silersen xd
+- eski ndk'i sil
+rm -rf /Users/bugra/Library/Android/sdk/ndk/26.3.11579264
+
+- yenisini yükle
+/Users/bugra/Library/Android/sdk/cmdline-tools/latest/bin/sdkmanager --install "ndk;26.3.11579264"
+
+- projeye tanıt ilgili ndk'i kullan diye (android/local.properties)
+ndk.dir=/Users/bugra/Library/Android/sdk/ndk/26.3.11579264
+
+- son olarak
+flutter clean
+flutter pub get
+flutter run
+
+olmadı MISSION FAILED
+mevcut sana dediği versiyonu yukardaki yöntemle yükle yoksa booomm
+benim flutter bununla çalışıyor
+26.3.11579264
+
+yükleyince düzeldi benimki hata vermiş gibi olmasına bakma
+*************************
+
+## DEBUGGING
+hataları görmek view > debug console
+
+- debug işlemi için bildiğin mantık kırmızı olarak işaretle metodları vs. Eğer bir parametre izlencekse ona gel debugtayken sağ tıkla ve 'add to watch' yap
+
+- Flutter devtools : command palette > Flutter open devtools > Web Browser
+
+Bu sana tarayıcıda gösterir ancak çalıştırmak için mainde "Profile" seçilmeli
+
+Kullanmayız zaten fazla :x
+
+**********
+# paket eklemek
+flutter pub add uuid
+
+###### uygulamaya icon eklemek
+https://www.appicon.co/
+
+# sonra buraya ekle
+dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/app_icon.png"
+
+# çalıştır
+flutter pub get
+flutter pub run flutter_launcher_icons:main
+
+# uygulama ismi açmak
+android/app/src/main/AndroidManifest.xml
+**
+<application
+    android:label="SeninUygulamaIsmin"
+
+# ios için
+<key>CFBundleDisplayName</key>
+<string>SeninUygulamaIsmin</string>
+
+# son kontrol
+flutter clean
+flutter pub get
+flutter build apk --release
+
+######
