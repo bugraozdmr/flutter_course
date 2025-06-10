@@ -21,7 +21,6 @@ class Expenseitem extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Kategori ikon (solda)
             CircleAvatar(
               radius: 24,
               backgroundColor: getCategoryColor(
@@ -34,12 +33,10 @@ class Expenseitem extends StatelessWidget {
             ),
             const SizedBox(width: 16),
 
-            // Ana bilgi bloğu
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Başlık
                   Text(
                     expense.title,
                     style: const TextStyle(
@@ -50,7 +47,6 @@ class Expenseitem extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
 
-                  // Kategori ismi + ikon
                   Row(
                     children: [
                       Icon(Icons.label, size: 14, color: Colors.grey),
@@ -67,7 +63,6 @@ class Expenseitem extends StatelessWidget {
 
                   const SizedBox(height: 6),
 
-                  // Tarih
                   Row(
                     children: [
                       Icon(Icons.calendar_today, size: 14, color: Colors.grey),
@@ -85,7 +80,6 @@ class Expenseitem extends StatelessWidget {
               ),
             ),
 
-            // Tutar
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
