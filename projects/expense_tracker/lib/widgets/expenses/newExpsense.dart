@@ -1,8 +1,11 @@
+import 'package:expense_tracker/models/expense.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({super.key});
+  final void Function(Expense expense) onAddExpense;
+
+  const NewExpense({super.key, required this.onAddExpense});
 
   @override
   State<NewExpense> createState() => _NewExpenseState();
@@ -12,6 +15,7 @@ class _NewExpenseState extends State<NewExpense> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
   DateTime? _selectedDate;
+  Category? _selectedCategory;
 
   void _presentDatePicker() async {
     final now = DateTime.now();
@@ -29,6 +33,46 @@ class _NewExpenseState extends State<NewExpense> {
     }
   }
 
+  void _submitExpenseData() {
+    final enteredTitle = _titleController.text.trim();
+    final enteredAmount = double.tryParse(_amountController.text.trim());
+    final isAmountValid = enteredAmount != null && enteredAmount > 0;
+
+    if (enteredTitle.isEmpty ||
+        !isAmountValid ||
+        _selectedDate == null ||
+        _selectedCategory == null) {
+      showDialog(
+        context: context,
+        builder:
+            (ctx) => AlertDialog(
+              title: const Text('Invalid Input'),
+              content: const Text(
+                'Please ensure:\n\n- Title is not empty\n- Amount is a positive number\n- Date and Category are selected',
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(ctx).pop(),
+                  child: const Text('Okay'),
+                ),
+              ],
+            ),
+      );
+      return;
+    }
+
+    final newExpense = Expense(
+      title: enteredTitle,
+      amount: enteredAmount,
+      date: _selectedDate!,
+      category: _selectedCategory!,
+    );
+
+    widget.onAddExpense(newExpense);
+
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -38,7 +82,6 @@ class _NewExpenseState extends State<NewExpense> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Title input
             TextField(
               controller: _titleController,
               maxLength: 50,
@@ -113,9 +156,38 @@ class _NewExpenseState extends State<NewExpense> {
               ],
             ),
 
+            const SizedBox(height: 20),
+
+            // Category Dropdown
+            DropdownButtonFormField<Category>(
+              value: _selectedCategory,
+              decoration: InputDecoration(
+                labelText: 'Category',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                filled: true,
+                fillColor: Colors.grey.shade200,
+              ),
+              items:
+                  Category.values.map((category) {
+                    return DropdownMenuItem(
+                      value: category,
+                      child: Text(
+                        category.name[0].toUpperCase() +
+                            category.name.substring(1),
+                      ),
+                    );
+                  }).toList(),
+              onChanged: (value) {
+                setState(() {
+                  _selectedCategory = value;
+                });
+              },
+            ),
+
             const SizedBox(height: 30),
 
-            // Butonlar sağda
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -125,10 +197,7 @@ class _NewExpenseState extends State<NewExpense> {
                 ),
                 const SizedBox(width: 16),
                 ElevatedButton(
-                  onPressed: () {
-                    print(_titleController.text);
-                    // Kaydetme işlemi buraya
-                  },
+                  onPressed: _submitExpenseData,
                   child: const Text('Save Expense'),
                 ),
               ],

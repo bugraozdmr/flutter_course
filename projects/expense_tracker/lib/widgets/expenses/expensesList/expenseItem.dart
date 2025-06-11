@@ -42,7 +42,7 @@ class Expenseitem extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
-                      color: Colors.black87,
+                      // color: Colors.black87, THEME ISE YARAMAZ BU SEBEPLI
                     ),
                   ),
                   const SizedBox(height: 4),
