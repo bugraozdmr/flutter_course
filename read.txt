@@ -181,3 +181,11 @@ flutter pub get
 flutter build apk --release
 
 ######
+
+Expanded, bir Row, Column veya Flex widget'ı içinde çocuk (child) widget’ların boş kalan alanı paylaşmasını sağlar. Yani kullanılabilir alanı esnek bir şekilde dağıtarak UI'nin düzgün görünmesini sağlar.
+- as much heigh as Expanded can get !!
+
+--
+* adaptive apps - farklı kodlar farklı platformlara yapılabilir
+isIOS
+isAndroid

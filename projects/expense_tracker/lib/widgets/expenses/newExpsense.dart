@@ -75,138 +75,155 @@ class _NewExpenseState extends State<NewExpense> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+    final keyboardSpace = MediaQuery.of(context).viewInsets.bottom;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
+    final content = Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        TextField(
+          controller: _titleController,
+          maxLength: 50,
+          decoration: InputDecoration(
+            labelText: 'Title',
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+            filled: true,
+            fillColor: Colors.grey.shade200,
+          ),
+        ),
+
+        const SizedBox(height: 20),
+
+        isLandscape
+            ? Row(
+              children: [
+                Expanded(child: _buildAmountField()),
+                const SizedBox(width: 16),
+                Expanded(child: _buildDatePickerButton()),
+              ],
+            )
+            : Column(
+              children: [
+                _buildAmountField(),
+                const SizedBox(height: 16),
+                _buildDatePickerButton(),
+              ],
+            ),
+
+        const SizedBox(height: 20),
+
+        // Category Dropdown
+        DropdownButtonFormField<Category>(
+          value: _selectedCategory,
+          decoration: InputDecoration(
+            labelText: 'Category',
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+            filled: true,
+            fillColor: Colors.grey.shade200,
+          ),
+          items:
+              Category.values.map((category) {
+                return DropdownMenuItem(
+                  value: category,
+                  child: Text(
+                    category.name[0].toUpperCase() + category.name.substring(1),
+                  ),
+                );
+              }).toList(),
+          onChanged: (value) {
+            setState(() {
+              _selectedCategory = value;
+            });
+          },
+        ),
+
+        const SizedBox(height: 30),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            TextField(
-              controller: _titleController,
-              maxLength: 50,
-              decoration: InputDecoration(
-                labelText: 'Title',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                filled: true,
-                fillColor: Colors.grey.shade200,
-              ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Cancel'),
             ),
-
-            const SizedBox(height: 20),
-
-            // Amount ve Date picker yan yana
-            Row(
-              children: [
-                // Amount
-                Expanded(
-                  flex: 2,
-                  child: TextField(
-                    controller: _amountController,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      labelText: 'Amount',
-                      prefixText: '\$ ',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      filled: true,
-                      fillColor: Colors.grey.shade200,
-                    ),
-                  ),
-                ),
-
-                const SizedBox(width: 16),
-
-                // Date picker
-                Expanded(
-                  flex: 3,
-                  child: OutlinedButton(
-                    onPressed: _presentDatePicker,
-                    style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 18,
-                        horizontal: 12,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Flexible(
-                          child: Text(
-                            _selectedDate == null
-                                ? 'Choose Date'
-                                : DateFormat.yMd().format(_selectedDate!),
-                            style: const TextStyle(fontSize: 16),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        const Icon(Icons.calendar_today, size: 20),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 20),
-
-            // Category Dropdown
-            DropdownButtonFormField<Category>(
-              value: _selectedCategory,
-              decoration: InputDecoration(
-                labelText: 'Category',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                filled: true,
-                fillColor: Colors.grey.shade200,
-              ),
-              items:
-                  Category.values.map((category) {
-                    return DropdownMenuItem(
-                      value: category,
-                      child: Text(
-                        category.name[0].toUpperCase() +
-                            category.name.substring(1),
-                      ),
-                    );
-                  }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  _selectedCategory = value;
-                });
-              },
-            ),
-
-            const SizedBox(height: 30),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Cancel'),
-                ),
-                const SizedBox(width: 16),
-                ElevatedButton(
-                  onPressed: _submitExpenseData,
-                  child: const Text('Save Expense'),
-                ),
-              ],
+            const SizedBox(width: 16),
+            ElevatedButton(
+              onPressed: _submitExpenseData,
+              child: const Text('Save Expense'),
             ),
           ],
         ),
+      ],
+    );
+
+    return Center(
+      child: SingleChildScrollView(
+        padding: EdgeInsets.only(
+          left: 24,
+          right: 24,
+          top: 16,
+          bottom: keyboardSpace + 16,
+        ),
+        child:
+            screenWidth > 600
+                ? Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 600),
+                    child: content,
+                  ),
+                )
+                : content,
       ),
     );
   }
+
+  Widget _buildAmountField() {
+    return TextField(
+      controller: _amountController,
+      keyboardType: TextInputType.number,
+      decoration: InputDecoration(
+        labelText: 'Amount',
+        prefixText: '\$ ',
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+        filled: true,
+        fillColor: Colors.grey.shade200,
+      ),
+    );
+  }
+
+  Widget _buildDatePickerButton() {
+    return OutlinedButton(
+      onPressed: _presentDatePicker,
+      style: OutlinedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Flexible(
+            child: Text(
+              _selectedDate == null
+                  ? 'Choose Date'
+                  : DateFormat.yMd().format(_selectedDate!),
+              style: const TextStyle(fontSize: 16),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          const SizedBox(width: 8),
+          const Icon(Icons.calendar_today, size: 20),
+        ],
+      ),
+    );
+  }
+  /**
+   * Küçük ekranlarda içerikler dikey olarak sıralanır.
+    Tablet ya da yatay modda içerikler daha yatay yapıda gösterilir.
+    ConstrainedBox sayesinde büyük ekranlarda içerik çok genişlemez (maks. 600px gibi tutulur).
+   */
 
   @override
   void dispose() {

@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'widgets/expenses.dart';
 
 void main() {
+  // rotate device yapınca değişmez uygulama yönü bu şekilde
+  /*WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((
+    fn,
+  ) {*/
   runApp(const MyApp());
+  // });
 }
 
 class MyApp extends StatelessWidget {
